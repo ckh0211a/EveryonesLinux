@@ -9,9 +9,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.teamsquare.everyoneslinux.fragment.FragHome;
 import com.teamsquare.everyoneslinux.fragment.FragLike;
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout drawerLayout;
     private ImageView iv_navi;
-
+    private ImageView setting_image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout = findViewById(R.id.drawerLayout);
         iv_navi = findViewById(R.id.iv_navi);
+        setting_image = findViewById(R.id.settings);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         fragHome = new FragHome();
@@ -81,6 +85,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+        
+        setting_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(MainActivity.this, "SettingActivity is called.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -143,4 +155,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawers();
         return false;
     }
+
 }

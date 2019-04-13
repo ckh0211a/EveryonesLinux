@@ -28,8 +28,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.CommandActivity" />
-        <activity android:name=".activity.HoneyTipActivity" />
+        <activity android:name=".activity.CommandActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name=".activity.HoneyTipActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName=".activity.MainActivity"/>
 
     </application>
 
