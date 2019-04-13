@@ -1,5 +1,6 @@
-package com.teamsquare.everyoneslinux;
+package com.teamsquare.everyoneslinux.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,12 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.smarteist.autoimageslider.DefaultSliderView;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.SliderLayout;
 import com.smarteist.autoimageslider.SliderView;
+import com.teamsquare.everyoneslinux.R;
+import com.teamsquare.everyoneslinux.activity.CommandActivity;
+import com.teamsquare.everyoneslinux.activity.HoneyTipActivity;
 
 /**
  * Created by hongchul on 2019-04-02.
@@ -21,12 +26,28 @@ import com.smarteist.autoimageslider.SliderView;
 public class FragHome extends Fragment {
     private SliderLayout sliderLayout; // 이미지 슬라이더
     private View view;
+    private LinearLayout linear_command, linear_tip;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.frag_home, container, false);
 
+
+        linear_command = view.findViewById(R.id.linear_command);
+        linear_command.setOnClickListener(new View.OnClickListener() { // 리눅스 커맨드 사용법 메뉴
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), CommandActivity.class));
+            }
+        });
+        linear_tip = view.findViewById(R.id.linear_tip);
+        linear_tip.setOnClickListener(new View.OnClickListener() { // 리눅스 활용 꿀팁 메뉴
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), HoneyTipActivity.class));
+            }
+        });
 
         sliderLayout = view.findViewById(R.id.imageSlider);
         sliderLayout.setIndicatorAnimation(IndicatorAnimations.SWAP);

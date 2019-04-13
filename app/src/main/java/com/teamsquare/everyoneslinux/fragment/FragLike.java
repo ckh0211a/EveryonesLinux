@@ -1,4 +1,4 @@
-package com.teamsquare.everyoneslinux;
+package com.teamsquare.everyoneslinux.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.teamsquare.everyoneslinux.R;
 
 /**
  * Created by hongchul on 2019-04-02.

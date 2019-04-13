@@ -1,4 +1,4 @@
-package com.teamsquare.everyoneslinux;
+package com.teamsquare.everyoneslinux.activity;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,6 +12,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.teamsquare.everyoneslinux.fragment.FragHome;
+import com.teamsquare.everyoneslinux.fragment.FragLike;
+import com.teamsquare.everyoneslinux.fragment.FragSearch;
+import com.teamsquare.everyoneslinux.fragment.FragSetting;
+import com.teamsquare.everyoneslinux.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
