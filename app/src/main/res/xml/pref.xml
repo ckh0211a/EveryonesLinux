@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:id="@+id/switch1"
+        android:title="Switch"
+        android:key="switch_key"
+        android:summaryOn="true"
+        android:summaryOff="false"
+        android:theme="@style/PreferenceThemeOverlay">
+    </SwitchPreference>
+
+</PreferenceScreen>

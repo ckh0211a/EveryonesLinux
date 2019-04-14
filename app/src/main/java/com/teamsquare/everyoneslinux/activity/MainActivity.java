@@ -1,5 +1,8 @@
 package com.teamsquare.everyoneslinux.activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -10,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +26,7 @@ import com.teamsquare.everyoneslinux.fragment.FragSearch;
 import com.teamsquare.everyoneslinux.fragment.FragSetting;
 import com.teamsquare.everyoneslinux.R;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
 
     private BottomNavigationView bottomNavigationView; // 바텀 네비게이션 뷰
@@ -38,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private ImageView iv_navi;
     private ImageView setting_image;
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,12 +98,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(MainActivity.this, "SettingActivity is called.", Toast.LENGTH_SHORT).show();
+                Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(settingsIntent);
             }
         });
 
+        setSharedPreference();
+
     }
 
+    private void setSharedPreference() {
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Log.d(TAG, "Switch: " + sharedPreferences.getBoolean("switch_key", false));
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
 
 
     // 백버튼을 눌러도 네비게이션 메뉴가 닫히게 구현.
@@ -156,4 +171,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+        if(key.equals("switch_key")) {
+            Log.d(TAG, "Switch: " + sharedPreferences.getBoolean("switch_key", false));
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .unregisterOnSharedPreferenceChangeListener(this);
+    }
 }

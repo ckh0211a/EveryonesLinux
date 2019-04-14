@@ -14,7 +14,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".activity.SettingsActivity"
+            android:label="세팅 화면"
+            android:parentActivityName=".activity.MainActivity"></activity>
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -27,14 +29,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.CommandActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:parentActivityName=".activity.MainActivity"/>
-        <activity android:name=".activity.HoneyTipActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:parentActivityName=".activity.MainActivity"/>
-
+        <activity
+            android:name=".activity.CommandActivity"
+            android:label="리눅스 커맨드 사용법"
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.HoneyTipActivity"
+            android:label="리눅스 활용 꿀팁"
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>
