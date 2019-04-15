@@ -47,8 +47,6 @@ public class CommandActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_command);
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-//      commandAdapter = new CommandAdapter();
-//      recyclerView.setAdapter(commandAdapter);
 
     }
 
@@ -58,8 +56,6 @@ public class CommandActivity extends AppCompatActivity {
         data.setTitle("cd"); // 제목 추가
         data.setContent("디렉토리를 이동하는 코드 입니다."); // 내용란 추가
         data.setResId(R.drawable.android_sample); // 이미지 추가
-//      commandAdapter.addItem(data); // 리스트 아이템 추가
-        mArrayList.add(data);
 
 
         CommandData data2 = new CommandData();
@@ -67,9 +63,8 @@ public class CommandActivity extends AppCompatActivity {
         data2.setContent("현재경로의 폴더 또는 파일 목록을 보여줍니다."); // 내용란 추가
         data2.setResId(R.drawable.android_sample); // 이미지 추가
 
-//      commandAdapter.addItem(data2); // 리스트 아이템 추가
-//      commandAdapter.notifyDataSetChanged(); // 리스트 저장
 
+        mArrayList.add(data);
         mArrayList.add(data2);
         commandAdapter = new CommandAdapter(mArrayList);
         recyclerView.setAdapter(commandAdapter);

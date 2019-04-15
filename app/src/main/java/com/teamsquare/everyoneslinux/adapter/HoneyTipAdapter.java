@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,10 +16,18 @@ import com.teamsquare.everyoneslinux.item.HoneyTipData;
 
 import java.util.ArrayList;
 
-public class HoneyTipAdapter extends RecyclerView.Adapter<HoneyTipAdapter.ItemViewHolder> {
+public class HoneyTipAdapter extends RecyclerView.Adapter<HoneyTipAdapter.ItemViewHolder> implements Filterable {
 
-    // adapter에 들어갈 list 입니다.
-    private ArrayList<HoneyTipData> listData = new ArrayList<>();
+// adapter에 들어갈 list 입니다.
+//    private ArrayList<HoneyTipData> listData = new ArrayList<>();
+
+    private ArrayList<HoneyTipData> mArrayList;
+    private ArrayList<HoneyTipData> mFilteredList;
+
+    public HoneyTipAdapter(ArrayList<HoneyTipData> arrayList) {
+        mArrayList = arrayList;
+        mFilteredList = arrayList;
+    }
 
     @NonNull
     @Override
@@ -31,18 +41,49 @@ public class HoneyTipAdapter extends RecyclerView.Adapter<HoneyTipAdapter.ItemVi
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         // Item을 하나, 하나 보여주는(bind 되는) 함수입니다.
-        holder.onBind(listData.get(position));
+        holder.onBind(mFilteredList.get(position));
     }
 
     @Override
     public int getItemCount() {
         // RecyclerView의 총 개수 입니다.
-        return listData.size();
+        return mFilteredList.size();
     }
 
-    public void addItem(HoneyTipData data) {
-        // 외부에서 item을 추가시킬 함수입니다.
-        listData.add(data);
+    @Override
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+
+                if (charString.isEmpty()) {
+                    mFilteredList = mArrayList;
+                } else {
+
+                    ArrayList<HoneyTipData> filteredList = new ArrayList<>();
+                    for (HoneyTipData honeyTipData : mArrayList) {
+                        if (honeyTipData.getTitle().toLowerCase().contains(charString) ||
+                                honeyTipData.getContent().toLowerCase().contains(charString)) {
+
+                            filteredList.add(honeyTipData);
+                        }
+                    }
+                    mFilteredList = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mFilteredList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mFilteredList = (ArrayList<HoneyTipData>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     // RecyclerView의 핵심인 ViewHolder 입니다.

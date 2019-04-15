@@ -50,11 +50,6 @@ public class CommandAdapter extends RecyclerView.Adapter<CommandAdapter.ItemView
         return mFilteredList.size();
     }
 
-    public void addItem(CommandData data) {
-        // 외부에서 item을 추가시킬 함수입니다.
-        mArrayList.add(data);
-    }
-
     @Override
     public Filter getFilter() {
 
