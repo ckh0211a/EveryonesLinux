@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceCategory
+        android:title="알림 설정">
     <SwitchPreference
         android:id="@+id/switch1"
-        android:title="Switch"
+        android:title="알림 받기"
         android:key="switch_key"
-        android:summaryOn="true"
-        android:summaryOff="false"
+        android:summaryOn="수신"
+        android:summaryOff="거절"
         android:theme="@style/PreferenceThemeOverlay">
     </SwitchPreference>
+    </PreferenceCategory>
 
 </PreferenceScreen>
