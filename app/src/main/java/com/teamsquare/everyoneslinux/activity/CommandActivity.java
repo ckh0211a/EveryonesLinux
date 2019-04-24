@@ -1,5 +1,6 @@
 package com.teamsquare.everyoneslinux.activity;
 
+import android.support.annotation.NonNull;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,11 +11,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.teamsquare.everyoneslinux.R;
 import com.teamsquare.everyoneslinux.adapter.CommandAdapter;
 import com.teamsquare.everyoneslinux.item.CommandData;
+import com.teamsquare.everyoneslinux.item.FirebasePost;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +33,11 @@ public class CommandActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private CommandAdapter commandAdapter;
     private ArrayList<CommandData> mArrayList = new ArrayList<>();
+
+    private String sort_column_name;
+    private ArrayList<String> arrayData = new ArrayList<>();
+    private ArrayList<String> arrayIndex = new ArrayList<>();
+//    private ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +51,41 @@ public class CommandActivity extends AppCompatActivity {
         RecyclerInit();
         getData();
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        sort_column_name  = "title";
+        Query sortbyTitle = FirebaseDatabase.getInstance().getReference().child("cmd_list").orderByChild(sort_column_name);
+        sortbyTitle.addListenerForSingleValueEvent(postListener);
+
     }
+
+    private ValueEventListener postListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//            arrayData.clear();
+//            arrayIndex.clear();
+            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                String key = postSnapshot.getKey();
+//                FirebasePost get = postSnapshot.getValue(FirebasePost.class);
+//                String[] info = {get.title, get.content};
+//                String Result = info[0] + info[1];
+                Log.e("cmd_list key", String.valueOf(postSnapshot.getKey()));
+                Log.e("cmd_list value", String.valueOf(postSnapshot.getValue()));
+
+
+//                arrayData.add(Result);
+//                arrayIndex.add(key);
+            }
+//            arrayAdapter.clear();
+//            arrayAdapter.addAll(arrayData);
+//            arrayAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+        }
+    };
 
 
     public void RecyclerInit() { // 리사이클러뷰 연동
